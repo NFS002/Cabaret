@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+service CHORD_PROTO {
+  rpc ping   (pingRequest)   returns (pingResponse)   {}
+  rpc state  (stateRequest)  returns (stateResponse)  {}
+  rpc lookup (lookupRequest) returns (lookupResponse) {}
+  rpc notify (notifyRequest) returns (notifyResponse) {}
+}
+
+message pingRequest {
+  string sender = 1;
+}
+
+message pingResponse {
+  string sender = 1;
+}
+
+message stateRequest {
+  bool predecessor = 1;
+  bool successor = 2;
+  bool finger = 3;
+}
+
+message stateResponse {
+  string predecessor = 1;
+  repeated string successor = 2;
+  repeated string finger = 3;
+}
+
+message lookupRequest {
+  bytes id = 1;
+  uint32 counter = 2;
+}
+
+message lookupResponse {
+  string successor = 1;
+  uint32 hops = 2;
+}
+
+message notifyRequest {
+  string sender = 1;
+}
+
+message notifyResponse {
+
+}
